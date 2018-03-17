@@ -39,6 +39,7 @@ it:
     recent_activity: Attività recente
     report_problem: Segnala un problema
     search: chiedi una domanda
+    search_results: 'Risultati per: ''%{search_terms}'''
     sign_up_extended: Registrati con Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Registrati
@@ -57,7 +58,7 @@ it:
     no_courses_student: Sembra che non ti si è ancora iscritto a un corso.
     review_orientation: Esamina orientamento
     start_orientation: Inizia orientamento
-    blog_headline: Notizie recenti da Wiki Ed
+    blog_headline: Notizie recenti da Wiki Education
   home:
     explore: Esplora
     log_in: Accedi con Wikipedia
@@ -151,6 +152,12 @@ it:
     delete_campaign: Cancella questa campagna
     none: Nessuno
     title: Titolo
+  categories:
+    add_template: Aggiungi template
+    add_this_template: Aggiungi questo template
+    name: Nome
+    category_name: Nome della categoria
+    template_name: Nome template
   chat:
     label: Chat
   courses:
@@ -201,7 +208,7 @@ it:
         per cambiare stato tra deselezionato, selezionato e vacanza. Se non si hanno
         vacanze, seleziona "Non ho vacanze". La linea temporale clonata regolerà automaticamente
         le date per tenere conto di settimane che non hanno incontri programmati.'
-      clone_successful: Corso clonato correttamente
+      clone_successful: Aggiorna dettagli per il corso clonato
       clone_successful_details: Il corso è stato clonato, compresi gli elementi della
         cronologia degli eventi (settimane e blocchi). Assicurati di aggiungere le
         date, che non sono riportate. È stato cambiato altro del tuo corso? Non esitare  ad

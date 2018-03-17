@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import CategoryList from "./category_list.jsx";
-import { fetchCategories, removeCategory } from "../../actions/category_actions.js";
+import { fetchCategories, removeCategory, addCategory } from "../../actions/category_actions.js";
 
 const CategoryHandler = createReactClass({
   displayName: "CategoryHandler",
@@ -11,7 +11,8 @@ const CategoryHandler = createReactClass({
   propTypes: {
     fetchCategories: PropTypes.func,
     removeCategory: PropTypes.func,
-    course: PropTypes.object
+    course: PropTypes.object,
+    current_user: PropTypes.object
   },
 
   componentWillMount() {
@@ -19,12 +20,15 @@ const CategoryHandler = createReactClass({
   },
 
   render() {
+    const editable = this.props.current_user.isNonstudent;
     return (
       <CategoryList
         course={this.props.course}
         categories={this.props.categories}
         loading={this.props.loading}
         removeCategory={this.props.removeCategory}
+        addCategory={this.props.addCategory}
+        editable={editable}
       />
     );
   }
@@ -37,7 +41,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchCategories: fetchCategories,
-  removeCategory: removeCategory
+  removeCategory: removeCategory,
+  addCategory: addCategory
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryHandler);
