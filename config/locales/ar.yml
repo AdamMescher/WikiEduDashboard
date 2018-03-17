@@ -95,6 +95,7 @@ ar:
     show_cumulative_changes: أظهر التغييرات التراكمية
     title: العنوان
     title_example: عنوان المقال
+    tools: أدوات التقييم
     view: عرض المقالة
     view_all: عرض الكل
     view_doc: مجموع وجهات النظر حول كل مقالة من خلال المشروع
@@ -127,6 +128,17 @@ ar:
     none: لا شيء
     organizers: المنظمون
     title: العنوان
+  categories:
+    add_category: أضف تصنيفًا
+    add_template: أضف القالب
+    add_this_category: أضف هذا التصنيف
+    add_this_template: أضف هذا القالب
+    confirm_template_addition: هل أنت متأكد من أنك تريد تتبع المساهمات في قالب "%{name}"؟
+    depth: عمق التصنيف الفرعي
+    name: الاسم
+    category_name: اسم التصنيف
+    template_name: اسم القالب
+    tracked_categories: التصنيفات والقوالب المتابعة
   chat:
     label: دردشة
   courses:

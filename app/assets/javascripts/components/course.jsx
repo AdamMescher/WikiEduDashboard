@@ -2,11 +2,11 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseLink from './common/course_link.jsx';
+import Confirm from './common/confirm.jsx';
 import ServerActions from '../actions/server_actions.js';
 import CourseActions from '../actions/course_actions.js';
 import CourseStore from '../stores/course_store.js';
 import UserStore from '../stores/user_store.js';
-import NotificationStore from '../stores/notification_store.js';
 import WeekStore from '../stores/week_store.js';
 import Affix from './common/affix.jsx';
 import CourseUtils from '../utils/course_utils.js';
@@ -38,7 +38,7 @@ const Course = createReactClass({
     current_user: PropTypes.object
   },
 
-  mixins: [CourseStore.mixin, UserStore.mixin, NotificationStore.mixin, WeekStore.mixin],
+  mixins: [CourseStore.mixin, UserStore.mixin, WeekStore.mixin],
 
   getInitialState() {
     return getState();
@@ -78,6 +78,9 @@ const Course = createReactClass({
   },
 
   render() {
+    const courseId = this.getCourseID();
+    if (!courseId || !this.state.course || !this.state.course.home_wiki) { return <div />; }
+
     const alerts = [];
     const userRoles = this.state.current_user;
     // //////////////////////////////////
@@ -238,8 +241,9 @@ const Course = createReactClass({
           {alerts}
         </div>
         <div className="course_main container">
+          <Confirm />
           {enrollCard}
-          {React.cloneElement(this.props.children, { course_id: this.getCourseID(), current_user: this.state.current_user, course: this.state.course })}
+          {React.cloneElement(this.props.children, { course_id: courseId, current_user: this.state.current_user, course: this.state.course })}
         </div>
       </div>
     );
