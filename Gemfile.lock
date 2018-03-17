@@ -72,7 +72,7 @@ GEM
       activemodel (= 5.1.4)
       activesupport (= 5.1.4)
       arel (~> 8.0)
-    activerecord-import (0.20.2)
+    activerecord-import (0.21.0)
       activerecord (>= 3.2)
     activesupport (5.1.4)
       concurrent-ruby (~> 1.0, >= 1.0.2)
@@ -98,13 +98,13 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.3)
       debug_inspector (>= 0.0.1)
-    bootsnap (1.1.5)
+    bootsnap (1.1.7)
       msgpack (~> 1.0)
     breadcrumbs_on_rails (3.0.1)
     browser (2.5.2)
     builder (3.2.3)
     byebug (9.1.0)
-    capistrano (3.10.0)
+    capistrano (3.10.1)
       airbrussh (>= 1.0.0)
       i18n
       rake (>= 10.0.0)
@@ -114,7 +114,7 @@ GEM
       sshkit (~> 1.2)
     capistrano-passenger (0.2.0)
       capistrano (~> 3.0)
-    capistrano-rails (1.3.0)
+    capistrano-rails (1.3.1)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
     capistrano-rvm (0.1.2)
@@ -152,7 +152,7 @@ GEM
     debug_inspector (0.0.3)
     deep_cloneable (2.3.1)
       activerecord (>= 3.1.0, < 5.2.0)
-    devise (4.3.0)
+    devise (4.4.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0, < 5.2)
@@ -164,14 +164,13 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.7.0)
     erubis (2.7.0)
-    execjs (2.7.0)
     factory_bot (4.8.2)
       activesupport (>= 3.0.0)
     factory_bot_rails (4.8.2)
       factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
-    faker (1.8.4)
-      i18n (~> 0.5)
+    faker (1.8.5)
+      i18n (~> 0.9.1)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
     faraday-cookie_jar (0.0.6)
@@ -249,10 +248,6 @@ GEM
     lumberjack (1.0.12)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
-    mailgun_rails (0.9.0)
-      actionmailer (>= 3.2.13)
-      json (>= 1.7.7)
-      rest-client (>= 1.6.7)
     mediawiki_api (0.7.1)
       faraday (~> 0.9, >= 0.9.0)
       faraday-cookie_jar (~> 0.0, >= 0.0.6)
@@ -264,9 +259,9 @@ GEM
     mimemagic (0.3.2)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
-    minitest (5.10.3)
-    msgpack (1.1.0)
-    msgpack (1.1.0-x64-mingw32)
+    minitest (5.11.1)
+    msgpack (1.2.0)
+    msgpack (1.2.0-x64-mingw32)
     multi_json (1.12.2)
     multipart-post (2.0.0)
     mysql2 (0.4.10)
@@ -275,7 +270,6 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.2.0)
-    netrc (0.11.0)
     newrelic_rpm (4.6.0.338)
     nio4r (2.1.0)
     nokogiri (1.8.1)
@@ -285,7 +279,7 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    oauth (0.5.3)
+    oauth (0.5.4)
     omniauth (1.7.1)
       hashie (>= 3.4.6, < 3.6.0)
       rack (>= 1.6.2, < 3)
@@ -294,7 +288,7 @@ GEM
       omniauth (~> 1.0)
     orm_adapter (0.5.0)
     pandoc-ruby (1.0.0)
-    paper_trail (8.0.1)
+    paper_trail (8.1.1)
       activerecord (>= 4.2, < 5.2)
       request_store (~> 1.1)
     paperclip (5.1.0)
@@ -303,10 +297,10 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
-    parallel (1.12.0)
+    parallel (1.12.1)
     parser (2.4.0.2)
       ast (~> 2.3)
-    poltergeist (1.16.0)
+    poltergeist (1.17.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
@@ -315,7 +309,7 @@ GEM
       addressable
       css_parser (>= 1.6.0)
       htmlentities (>= 4.0.0)
-    premailer-rails (1.9.7)
+    premailer-rails (1.10.1)
       actionmailer (>= 3, < 6)
       premailer (~> 1.7, >= 1.7.9)
     pry (0.11.3)
@@ -325,8 +319,6 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.1)
     rack (2.0.3)
-    rack-mini-profiler (0.10.6)
-      rack (>= 1.2.0)
     rack-protection (2.0.0)
       rack
     rack-test (0.8.2)
@@ -357,19 +349,13 @@ GEM
       ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails_12factor (0.0.3)
-      rails_serve_static_assets
-      rails_stdout_logging
-    rails_serve_static_assets (0.0.5)
-    rails_stdout_logging (0.0.5)
     railties (5.1.4)
       actionpack (= 5.1.4)
       activesupport (= 5.1.4)
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rainbow (2.2.2)
-      rake
+    rainbow (3.0.0)
     rake (12.3.0)
     rb-fchange (0.0.6)
       ffi
@@ -383,15 +369,6 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
-    rest-client (2.0.2)
-      http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 4.0)
-      netrc (~> 0.8)
-    rest-client (2.0.2-x64-mingw32)
-      ffi (~> 1.9)
-      http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 4.0)
-      netrc (~> 0.8)
     rinruby (2.0.3)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
@@ -414,11 +391,11 @@ GEM
       rspec-mocks (~> 3.7.0)
       rspec-support (~> 3.7.0)
     rspec-support (3.7.0)
-    rubocop (0.51.0)
+    rubocop (0.52.0)
       parallel (~> 1.10)
-      parser (>= 2.3.3.1, < 3.0)
+      parser (>= 2.4.0.2, < 3.0)
       powerpack (~> 0.1)
-      rainbow (>= 2.2.2, < 3.0)
+      rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-graphviz (1.2.3)
@@ -469,8 +446,6 @@ GEM
       thread_safe (~> 0.1)
     tzinfo-data (1.2017.3)
       tzinfo (>= 1.0.0)
-    uglifier (3.2.0)
-      execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.4)
@@ -478,7 +453,7 @@ GEM
     unicode-display_width (1.3.0)
     validates_email_format_of (1.6.3)
       i18n
-    vcr (3.0.3)
+    vcr (4.0.0)
     warden (1.2.7)
       rack (>= 1.0)
     webmock (3.1.1)
@@ -518,7 +493,6 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   connection_pool
-  crack
   dalli
   database_cleaner
   deep_cloneable (~> 2.3.0)
@@ -535,8 +509,6 @@ DEPENDENCIES
   http_accept_language
   i18n-js
   jbuilder (~> 2.0)
-  launchy
-  mailgun_rails
   mediawiki_api (= 0.7.1)
   mysql2
   newrelic_rpm
@@ -547,13 +519,11 @@ DEPENDENCIES
   paperclip
   piwik_analytics!
   poltergeist
-  premailer-rails (= 1.9.7)
+  premailer-rails
   pry-rails
-  rack-mini-profiler
   rails (= 5.1.4)
   rails-controller-testing
   rails-erd
-  rails_12factor
   rake (>= 11.0)
   rapidfire!
   rb-fchange
@@ -574,7 +544,6 @@ DEPENDENCIES
   simplecov
   timecop
   tzinfo-data
-  uglifier
   validates_email_format_of
   vcr
   webmock
@@ -582,7 +551,7 @@ DEPENDENCIES
   zeus
 
 RUBY VERSION
-   ruby 2.3.1p112
+   ruby 2.5.0p0
 
 BUNDLED WITH
-   1.16.0.pre.3
+   1.16.1
