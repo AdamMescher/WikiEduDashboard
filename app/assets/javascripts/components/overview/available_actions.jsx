@@ -1,14 +1,14 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+
 import ServerActions from '../../actions/server_actions.js';
 import ChatActions from '../../actions/chat_actions.js';
 import CourseStore from '../../stores/course_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import Confirm from '../common/confirm.jsx';
-import ConfirmActions from '../../actions/confirm_actions.js';
-import ConfirmationStore from '../../stores/confirmation_store.js';
+import { initiateConfirm } from '../../actions/confirm_actions.js';
 import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
@@ -22,38 +22,44 @@ const AvailableActions = createReactClass({
     current_user: PropTypes.object
   },
 
-  mixins: [CourseStore.mixin, ConfirmationStore.mixin],
+  mixins: [CourseStore.mixin],
 
   getInitialState() {
     return ({
-      course: CourseStore.getCourse(),
-      showConfirm: null,
-      onConfirm: null,
-      onCancel: null
+      course: CourseStore.getCourse()
     });
   },
 
   storeDidChange() {
-    // This handles closing the Confirm dialog after it has been clicked.
-    if (!ConfirmationStore.isConfirmationActive()) {
-      this.setState(this.getInitialState());
-    }
     return this.setState(getState());
   },
 
   join() {
-    const EnrollURL = this.state.course.enroll_url;
-    const onConfirm = function (passcode) {
-      ConfirmActions.actionConfirmed();
+    if (this.state.course.passcode === '') {
+      const EnrollURL = this.state.course.enroll_url;
+      const onConfirm = function () {
+        return window.location = EnrollURL;
+      };
+      const confirmMessage = CourseUtils.i18n('join_no_passcode');
+      this.props.initiateConfirm(confirmMessage, onConfirm);
+    } else {
+      const EnrollURL = this.state.course.enroll_url;
+      const onConfirm = function (passcode) {
       return window.location = EnrollURL + passcode;
-    };
-    const onCancel = function () {
-      return ConfirmActions.actionCancelled();
-    };
-    const confirmMessage = I18n.t('courses.passcode_prompt');
-    const joinDescription = CourseUtils.i18n('join_details', this.state.course.string_prefix);
+      };
+      const confirmMessage = I18n.t('courses.passcode_prompt');
+      const joinDescription = CourseUtils.i18n('join_details', this.state.course.string_prefix);
+      this.props.initiateConfirm(confirmMessage, onConfirm, true, joinDescription);
+    }
+  },
 
-    this.setState({ onConfirm, onCancel, confirmMessage, joinDescription, showConfirm: true });
+  updateStats() {
+    const updateUrl = `${window.location.origin}/courses/${this.state.course.slug}/manual_update`;
+    const onConfirm = function () {
+      return window.location = updateUrl;
+    };
+    const confirmMessage = I18n.t('courses.confirm_manual_update');
+    this.props.initiateConfirm(confirmMessage, onConfirm);
   },
 
   leave() {
@@ -85,20 +91,6 @@ const AvailableActions = createReactClass({
   render() {
     const controls = [];
     const user = this.props.current_user;
-
-    let confirmationDialog;
-    if (this.state.showConfirm) {
-      confirmationDialog = (
-        <Confirm
-          onConfirm={this.state.onConfirm}
-          onCancel={this.state.onCancel}
-          message={this.state.confirmMessage}
-          explanation={this.state.joinDescription}
-          showInput={true}
-        />
-      );
-    }
-
     // If user has a role in the course or is an admin
     if ((user.role !== undefined) || user.admin) {
       // If user is a student, show the 'leave' button.
@@ -139,6 +131,13 @@ const AvailableActions = createReactClass({
         <p key="join"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', this.state.course.string_prefix)}</button></p>
       ));
     }
+    // If the user is enrolled in the course or admin, and the course type is editathon and not finished, show a manual stats update button
+    if ((user.isEnrolled || user.isAdmin) && (this.state.course.type === 'Editathon' && !this.state.course.ended)) {
+      controls.push((
+        <p key="updateStats"><button className="button" onClick={this.updateStats}>{I18n.t('courses.update_stats')}</button></p>
+      ));
+    }
+
     // If the user is an instructor or admin, and the course is published, show a stats download button
     // Always show the stats download for published non-Wiki Ed courses.
     if ((user.role === 1 || user.admin || !Features.wikiEd) && this.state.course.published) {
@@ -160,7 +159,6 @@ const AvailableActions = createReactClass({
         </div>
         <div className="module__data">
           <GreetStudentsButton course={this.state.course} current_user={this.props.current_user} />
-          {confirmationDialog}
           {controls}
           <SalesforceLink course={this.state.course} current_user={this.props.current_user} />
         </div>
@@ -170,4 +168,6 @@ const AvailableActions = createReactClass({
 }
 );
 
-export default AvailableActions;
+const mapDispatchToProps = { initiateConfirm };
+
+export default connect(null, mapDispatchToProps)(AvailableActions);

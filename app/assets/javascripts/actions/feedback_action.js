@@ -1,5 +1,4 @@
 import * as types from '../constants';
-import ApiFailAction from './api_fail_action.js';
 import API from '../utils/api.js';
 
 // This action uses the Thunk middleware pattern: instead of returning a plain
@@ -14,10 +13,7 @@ export function fetchFeedback(articleTitle, assignmentId) {
       .then((resp) => {
         dispatch({ type: types.RECEIVE_ARTICLE_FEEDBACK, data: resp, assignmentId: assignmentId });
       })
-      // TODO: The Flux stores still handle API failures, so we delegate to a
-      // Flux action. Once all API_FAIL actions can be handled by Redux, we can
-      // replace this with a regular action dispatch.
-      .catch(response => (ApiFailAction.fail(response)));
+      .catch(response => (dispatch({ type: types.API_FAIL, data: response })));
   };
 }
 
@@ -25,12 +21,11 @@ export function postUserFeedback(assignmentId, feedback, userId) {
   return function (dispatch) {
     return API.createCustomFeedback(assignmentId, feedback, userId)
       .then((resp) => {
-        dispatch({ type: types.POST_USER_FEEDBACK, data: resp, assignmentId: assignmentId, feedback: feedback, messageId: resp.id, userId: userId });
+        dispatch({
+          type: types.POST_USER_FEEDBACK, data: resp, assignmentId: assignmentId, feedback: feedback, messageId: resp.id, userId: userId
+        });
       })
-      // TODO: The Flux stores still handle API failures, so we delegate to a
-      // Flux action. Once all API_FAIL actions can be handled by Redux, we can
-      // replace this with a regular action dispatch.
-      .catch(response => (ApiFailAction.fail(response)));
+      .catch(response => (dispatch({ type: types.API_FAIL, data: response })));
   };
 }
 
@@ -38,8 +33,10 @@ export function deleteUserFeedback(assignmentId, messageId, arrayId) {
   return function (dispatch) {
     return API.destroyCustomFeedback(assignmentId, messageId)
       .then((resp) => {
-        dispatch({ type: types.DELETE_USER_FEEDBACK, data: resp, assignmentId: assignmentId, arrayId: arrayId });
+        dispatch({
+          type: types.DELETE_USER_FEEDBACK, data: resp, assignmentId: assignmentId, arrayId: arrayId
+        });
       })
-      .catch(response => (ApiFailAction.fail(response)));
+      .catch(response => (dispatch({ type: types.API_FAIL, data: response })));
   };
 }
