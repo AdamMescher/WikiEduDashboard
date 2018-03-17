@@ -10,12 +10,23 @@ const List = ({
   table_key,
   className,
   elements,
-  none_message
+  none_message,
+  loading,
+  sortBy
 }) => {
   const sorting = store && store.getSorting();
   const sortClass = (sorting && sorting.asc) ? 'asc' : 'desc';
   const headers = [];
   const iterable = Object.keys(keys);
+
+  const sortByFunction = (tableKey, key) => {
+    if (sortBy) {
+      return () => {
+        sortBy(key);
+      };
+    }
+    return UIActions.sort.bind(null, tableKey, key);
+  };
 
   for (let i = 0; i < iterable.length; i++) {
     const key = iterable[i];
@@ -26,7 +37,7 @@ const List = ({
     headerClass += keyObj.desktop_only ? ' desktop-only-tc' : '';
     if ((sortable !== false) && (keyObj.sortable !== false)) {
       headerClass += ' sortable';
-      headerOnClick = UIActions.sort.bind(null, table_key, key);
+      headerOnClick = sortByFunction(table_key, key);
     }
     if (keyObj.info_key) {
       headerClass += ' tooltip-trigger';
@@ -59,7 +70,7 @@ const List = ({
   // show the Loading spinner if data is not yet loaded.
   if (elements.length === 0) {
     let emptyMessage;
-    if (store && store.isLoaded()) {
+    if (store && store.isLoaded() || !loading) {
       // eslint-disable-next-line
       let noneMessage = none_message;
       if (typeof noneMessage === 'undefined' || noneMessage === null) {
