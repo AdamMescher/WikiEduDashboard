@@ -94,6 +94,16 @@ sv:
     program_template: Programmall
     title: Titel
     use_start_end_dates: Använd start- och slutdatum
+  categories:
+    add_category: Lägg till kategori
+    add_template: Lägg till mall
+    add_this_category: Lägg till denna kategori
+    add_this_template: Lägg till denna mall
+    confirm_template_addition: Är du säker på att du vill spåra bidrag på mallen "%{name}"?
+    name: Namn
+    category_name: Kategorinamn
+    template_name: Mallnamn
+    remove: Ta bort
   chat:
     label: Chatta
   courses:
@@ -199,6 +209,7 @@ sv:
     timeline_link: Tidslinje
     time_zone_message: Start- och sluttider visas i din lokala tidszon.
     title: Titel
+    update_stats: Uppdatera statistik
     view_other: Visa andra kampanjer
     view_wiki: Se på Wikipedia
     volunteer:
