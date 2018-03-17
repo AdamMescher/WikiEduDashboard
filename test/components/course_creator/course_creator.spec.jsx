@@ -4,10 +4,9 @@ import sinon from 'sinon';
 import React from 'react';
 import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
 
-import CourseActions from '../../../app/assets/javascripts/actions/course_actions.js';
 import ValidationActions from '../../../app/assets/javascripts/actions/validation_actions.js';
 import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 CourseCreator.__Rewire__('ValidationStore', {
   isValid() { return true; },
@@ -27,9 +26,20 @@ const getStyle = (node) => {
   return styleMatch ? styleMatch[1] : '';
 };
 
+
 describe('CourseCreator', () => {
   describe('render', () => {
-    const TestCourseCreator = mount(<CourseCreator fetchCoursesForUser={() => {}} user_courses={["some_course"]} />);
+    const updateCourseSpy = sinon.spy();
+
+    const TestCourseCreator = shallow(
+      <CourseCreator
+        courseCreator={{}}
+        fetchCoursesForUser={() => {}}
+        user_courses={["some_course"]}
+        course={reduxStore.getState().course}
+        updateCourse={updateCourseSpy}
+      />
+    );
 
     it('renders a title', () => {
       expect(TestCourseCreator.find('h3').first().text()).to.eq('Create a New Course');
@@ -57,23 +67,17 @@ describe('CourseCreator', () => {
       });
     });
     describe('formStyle', () => {
-      describe('not submitting', () => {
-        it('is empty', () => {
-          expect(getStyle(TestCourseCreator)).to.eq('');
-        });
-      });
       describe('submitting', () => {
         it('includes pointerEvents and opacity', () => {
           TestCourseCreator.setState({ isSubmitting: true });
           const wizardPanel = TestCourseCreator.find('.wizard__panel').first();
-          expect(getStyle(wizardPanel)).to.eq('pointer-events: none; opacity: 0.5;');
+          expect(getStyle(wizardPanel)).to.eq('pointer-events:none;opacity:0.5;');
           TestCourseCreator.setState({ isSubmitting: false });
         });
       });
     });
     describe('text inputs', () => {
       TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
-      const updateCourseSpy = sinon.spy(CourseActions, 'updateCourse');
       const setValidSpy = sinon.spy(ValidationActions, 'setValid');
 
       describe('subject', () => {
